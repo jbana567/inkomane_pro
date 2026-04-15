@@ -1,0 +1,20 @@
+/* Animated Shadow for active cards */
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+/* Custom Scrollbar for Chat */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 10px;
+}
+
+/* Status Pill Polish */
+.status-pill {
+    transition: all 0.3s ease;
+    cursor: default;
+}
