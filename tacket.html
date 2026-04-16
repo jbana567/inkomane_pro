@@ -3,187 +3,659 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INKOMANE | Support & Application Portal</title>
+    <title> INKOMANE TICJETS SYTSEM</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            --accent: #6366f1;
-            --glass: rgba(255, 255, 255, 0.8);
-            --shadow-3d: 0 20px 40px rgba(0,0,0,0.1);
+            --primary-dark: #0f172a;
+            --secondary-dark: #1e293b;
+            --accent-cyan: #06b6d4;
+            --accent-purple: #8b5cf6;
+            --accent-pink: #ec4899;
+            --text-light: #f8fafc;
+            --text-gray: #94a3b8;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
         body {
-            background: #f8fafc;
             font-family: 'Inter', sans-serif;
-            padding-top: 120px;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
         }
 
-        /* Modern Glass Navbar */
-        .modern-nav {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 1100px;
-            background: var(--glass); backdrop-filter: blur(15px);
-            border-radius: 100px; padding: 12px 30px;
-            z-index: 1000; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: var(--shadow-3d); border: 1px solid white;
+        h1, h2, h3, .brand-font {
+            font-family: 'Orbitron', sans-serif;
         }
 
-        /* Glass Cards */
+        
+        .bg-animate {
+            background: linear-gradient(-45deg, #0f172a, #1e1b4b, #312e81, #0f172a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: textShine 5s linear infinite;
+        }
+
+        @keyframes textShine {
+            to { background-position: 200% center; }
+        }
+
         .glass-card {
-            background: white;
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: var(--shadow-3d);
-            border: 1px solid rgba(255,255,255,0.5);
-            transition: 0.3s;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
-        .status-badge {
-            padding: 5px 15px; border-radius: 50px; font-size: 0.75rem; font-weight: 700;
-        }
-
-        /* Auth Modal Styling */
-        .auth-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(10px);
-            z-index: 2000; display: flex; align-items: center; justify-content: center;
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent-cyan);
         }
 
         .btn-modern {
-            background: var(--accent); color: white; border-radius: 12px;
-            padding: 10px 25px; border: none; font-weight: 600; transition: 0.3s;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
         }
 
-        .btn-modern:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
+        .btn-gradient {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-gradient:hover {
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+            transform: scale(1.05);
+        }
+
+        .navbar-custom {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1rem 0;
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            font-weight: 500;
+            position: relative;
+            margin: 0 10px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            transition: width 0.3s;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        #animation-showcase {
+            position: relative;
+            height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.3);
+            margin-top: 2rem;
+        }
+
+        .system-core {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            box-shadow: 0 0 30px var(--accent-purple);
+            position: relative;
+            z-index: 2;
+            animation: pulseCore 2s infinite ease-in-out;
+        }
+
+        .orbit {
+            position: absolute;
+            border: 1px dashed rgba(255,255,255,0.2);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .orbit-1 { width: 200px; height: 200px; animation: spin 10s linear infinite; }
+        .orbit-2 { width: 350px; height: 350px; animation: spin 15s linear infinite reverse; }
+
+        .planet {
+            width: 15px;
+            height: 15px;
+            background: var(--text-light);
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px white;
+        }
+
+        #connection-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes pulseCore {
+            0% { transform: scale(1); box-shadow: 0 0 30px var(--accent-purple); }
+            50% { transform: scale(1.1); box-shadow: 0 0 60px var(--accent-cyan); }
+            100% { transform: scale(1); box-shadow: 0 0 30px var(--accent-purple); }
+        }
+
+        footer {
+            background: #0b1120;
+            border-top: 1px solid var(--glass-border);
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            margin-right: 10px;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-purple);
+            transform: translateY(-3px);
+        }
+
+        .section-padding { padding: 5rem 0; }
+        .hidden { display: none !important; }
+        
+        .custom-toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-left: 4px solid var(--accent-cyan);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transform: translateX(150%);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 9999;
+        }
+        .custom-toast.active { transform: translateX(0); }
+
     </style>
 </head>
-<body x-data="{ 
-    view: 'track', 
-    isLoggedIn: false, 
-    authModal: false, 
-    authType: 'login' 
-}">
+<body>
 
-    <nav class="modern-nav">
-        <div class="fw-bold fs-4" @click="view = 'track'" style="cursor: pointer;">INKOMANE</div>
-        <div class="d-flex gap-3 align-items-center">
-            <template x-if="!isLoggedIn">
-                <div class="d-flex gap-2">
-                    <button class="btn btn-link text-dark text-decoration-none" @click="authModal = true; authType = 'login'">Login</button>
-                    <button class="btn btn-dark rounded-pill px-4" @click="authModal = true; authType = 'register'">Register</button>
+    <div class="bg-animate"></div> 
+
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand brand-font text-gradient fw-bold" href="#">
+                <i class="fa-solid fa-cube me-2"></i>INKOMANE TICKETING SYTSEM
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fa-solid fa-bars text-white"></i>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">More Information</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#system-demo">System Core</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center account-area" id="logged-out-view">
+                    <button class="btn btn-outline-light btn-sm px-4 me-2 rounded-pill" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                    <button class="btn btn-modern btn-gradient btn-sm">Sign Up</button>
                 </div>
-            </template>
-            <template x-if="isLoggedIn">
-                <div class="d-flex align-items-center gap-3">
-                    <span class="small fw-bold">Hi, User</span>
-                    <button class="btn btn-outline-danger btn-sm rounded-pill" @click="isLoggedIn = false">Logout</button>
+
+                <div class="d-flex align-items-center account-area hidden" id="logged-in-view">
+                    <span class="me-3 text-cyan">Welcome, Admin</span>
+                    <button class="btn btn-outline-danger btn-sm rounded-pill" onclick="handleLogout()">Logout</button>
                 </div>
-            </template>
+            </div>
         </div>
     </nav>
 
-    <div class="container">
-        <div x-show="view === 'track'">
-            <div class="row mb-5">
-                <div class="col-md-8">
-                    <h2 class="fw-bold">Support Tracking</h2>
-                    <p class="text-muted">View live status updates or submit a new support request.</p>
+    <header id="home" class="section-padding d-flex align-items-center min-vh-100">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <span class="badge bg-secondary bg-opacity-50 border border-secondary mb-3 px-3 py-2 rounded-pill">
+                        <i class="fa-solid fa-circle text-info me-1 small"></i> System v2.0 Live
+                    </span>
+                    <h1 class="display-3 fw-bold mb-4">Next Level <br><span class="text-gradient">Digital Architecture</span></h1>
+                    <p class="lead text-gray mb-5">Experience the future of data management with our interactive, linear-processing system. Designed for speed, security, and scalability.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#about" class="btn btn-modern btn-gradient">Explore System</a>
+                        <a href="#contact" class="btn btn-modern btn-outline-light border-1 text-white">Get Support</a>
+                    </div>
                 </div>
-                <div class="col-md-4 text-md-end">
-                    <button class="btn btn-modern w-100 py-3" 
-                            @click="isLoggedIn ? view = 'apply' : (authModal = true; authType = 'register')">
-                        + Apply for Support Ticket
-                    </button>
-                </div>
-            </div>
-
-            <div class="glass-card">
-                <div class="table-responsive">
-                    <table class="table align-middle">
-                        <thead>
-                            <tr class="text-muted small text-uppercase">
-                                <th>Ticket ID</th>
-                                <th>Subject</th>
-                                <th>Status</th>
-                                <th>Last Activity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="fw-bold">#INK-1092</td>
-                                <td>Network configuration help</td>
-                                <td><span class="status-badge bg-info text-dark">In Progress</span></td>
-                                <td class="small text-muted">2 hours ago</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <div class="glass-card p-4 text-center position-relative overflow-hidden">
+                        <div class="mb-3">
+                            <i class="fa-solid fa-layer-group fa-3x text-gradient"></i>
+                        </div>
+                        <h4 class="mb-3">Integrated Dashboard</h4>
+                        <p class="small text-gray">Real-time analytics and system health monitoring.</p>
+                        
+                        <div class="d-flex align-items-end justify-content-between mt-4" style="height: 100px;">
+                            <div class="w-100 bg-opacity-25 bg-primary mx-1 rounded-top" style="height: 40%; animation: pulseBar 1s infinite alternate;"></div>
+                            <div class="w-100 bg-opacity-25 bg-primary mx-1 rounded-top" style="height: 70%; animation: pulseBar 1.2s infinite alternate;"></div>
+                            <div class="w-100 bg-opacity-25 bg-primary mx-1 rounded-top" style="height: 50%; animation: pulseBar 0.8s infinite alternate;"></div>
+                            <div class="w-100 bg-opacity-25 bg-primary mx-1 rounded-top" style="height: 90%; animation: pulseBar 1.5s infinite alternate;"></div>
+                            <div class="w-100 bg-opacity-25 bg-primary mx-1 rounded-top" style="height: 60%; animation: pulseBar 1.1s infinite alternate;"></div>
+                        </div>
+                        <style>@keyframes pulseBar { from { opacity: 0.5; } to { opacity: 1; } }</style>
+                    </div>
                 </div>
             </div>
         </div>
+    </header>
 
-        <div x-show="view === 'apply'" x-transition>
-            <div class="max-auto" style="max-width: 700px; margin: 0 auto;">
-                <button class="btn btn-link text-dark mb-3 text-decoration-none" @click="view = 'track'">← Back to Tracker</button>
-                <div class="glass-card">
-                    <h4 class="fw-bold mb-4">New Support Application</h4>
-                    <form @submit.prevent="alert('Ticket Submitted!'); view = 'track'">
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-3">System <span class="text-gradient">Capabilities</span></h2>
+                <p class="text-gray max-width-700 mx-auto">Our platform utilizes cutting-edge algorithms to streamline your workflow.</p>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="display-5 text-gradient mb-3"><i class="fa-solid fa-bolt"></i></div>
+                        <h5>Lightning Fast</h5>
+                        <p class="text-gray small">Optimized linear animations ensure your data is processed with zero latency.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="display-5 text-gradient mb-3"><i class="fa-solid fa-shield-halved"></i></div>
+                        <h5>Secure Core</h5>
+                        <p class="text-gray small">Enterprise-grade encryption protects your account levels and sensitive info.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100">
+                        <div class="display-5 text-gradient mb-3"><i class="fa-solid fa-chart-line"></i></div>
+                        <h5>Analytics</h5>
+                        <p class="text-gray small">Deep insights into system performance with interactive visualizations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="system-demo" class="section-padding bg-opacity-10 bg-black">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 mb-4">
+                    <h2 class="fw-bold mb-3">Interactive <br><span class="text-gradient">System Core</span></h2>
+                    <p class="text-gray mb-4">Visualize how our system processes requests. Use the controls below to manipulate the core speed and data flow.</p>
+                    
+                    <div class="glass-card p-3">
+                        <label class="form-label small text-uppercase text-muted">Core Intensity</label>
+                        <input type="range" class="form-range" id="speedControl" min="1" max="10" value="2">
+                        
+                        <div class="d-flex gap-2 mt-3">
+                            <button class="btn btn-sm btn-outline-light w-100" id="toggleAnimBtn">Pause</button>
+                            <button class="btn btn-sm btn-gradient w-100" id="injectDataBtn">Inject Data</button>
+                        </div>
+                        <div class="mt-2 small text-center text-info" id="statusText">System Status: Nominal</div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-8">
+                    <div id="animation-showcase">
+                        <canvas id="connection-canvas"></canvas>
+                        <div class="orbit orbit-1">
+                            <div class="planet"></div>
+                        </div>
+                        <div class="orbit orbit-2">
+                            <div class="planet" style="width: 10px; height: 10px; background: var(--accent-pink);"></div>
+                        </div>
+                        <div class="system-core" id="core"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="glass-card p-5">
+                        <h2 class="text-center mb-4">Contact <span class="text-gradient">Support</span></h2>
+                        <form id="contactForm" onsubmit="handleContact(event)">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Name</label>
+                                    <input type="text" class="form-control bg-dark text-white border-secondary" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control bg-dark text-white border-secondary" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Subject</label>
+                                    <select class="form-select bg-dark text-white border-secondary">
+                                        <option>General Inquiry</option>
+                                        <option>System Access</option>
+                                        <option>Technical Support</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Message</label>
+                                    <textarea class="form-control bg-dark text-white border-secondary" rows="4" required></textarea>
+                                </div>
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-modern btn-gradient w-50">Send Message</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 class="brand-font mb-3">NEXGEN</h5>
+                    <p class="text-gray small">Building the digital infrastructure of tomorrow with modern web technologies and secure systems.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Quick Links</h6>
+                    <ul class="list-unstyled small text-gray">
+                        <li class="mb-2"><a href="#home" class="text-decoration-none text-gray hover-cyan">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="text-decoration-none text-gray hover-cyan">About System</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-gray hover-cyan">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h6 class="text-white mb-3">Account</h6>
+                    <ul class="list-unstyled small text-gray">
+                        <li class="mb-2"><a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="text-decoration-none text-gray hover-cyan">Login</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-gray hover-cyan">Register</a></li>
+                        <li class="mb-2"><a href="#" class="text-decoration-none text-gray hover-cyan">My Dashboard</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h6 class="text-white mb-3">Connect With Us</h6>
+                    <div class="mb-3">
+                        <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                    <p class="text-gray small mb-0">Subscribe for more information:</p>
+                    <div class="input-group mt-2">
+                        <input type="text" class="form-control form-control-sm bg-dark text-white border-secondary" placeholder="Email address">
+                        <button class="btn btn-gradient btn-sm" type="button">Join</button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-top border-secondary mt-4 pt-4 text-center text-gray small">
+                <p class="mb-0">&copy; 2023 NexGen System. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content glass-card text-white border-0">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title brand-font">System Access</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form onsubmit="handleLogin(event)">
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">Issue Subject</label>
-                            <input type="text" class="form-control rounded-3 py-2" placeholder="Briefly describe the issue" required>
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" value="Admin">
                         </div>
-                        <div class="row mb-3">
-                            <div class="col">
-                                <label class="form-label small fw-bold">Department</label>
-                                <select class="form-select rounded-3">
-                                    <option>Technical Support</option>
-                                    <option>Billing</option>
-                                </select>
-                            </div>
-                            <div class="col">
-                                <label class="form-label small fw-bold">Priority</label>
-                                <select class="form-select rounded-3">
-                                    <option>Low</option>
-                                    <option>Medium</option>
-                                    <option>High</option>
-                                </select>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control bg-dark text-white border-secondary" value="password">
                         </div>
-                        <div class="mb-4">
-                            <label class="form-label small fw-bold">Detailed Explanation</label>
-                            <textarea class="form-control rounded-3" rows="5" required></textarea>
-                        </div>
-                        <button class="btn btn-modern w-100">Submit Application</button>
+                        <button type="submit" class="btn btn-modern btn-gradient w-100 mt-2">Authenticate</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="auth-modal" x-show="authModal" x-cloak x-transition>
-        <div class="glass-card" style="width: 100%; max-width: 400px;" @click.away="authModal = false">
-            <div class="text-center mb-4">
-                <h3 class="fw-bold" x-text="authType === 'login' ? 'Login' : 'Register'"></h3>
-                <p class="small text-muted">Access your INKOMANE dashboard</p>
-            </div>
-            
-            <form @submit.prevent="isLoggedIn = true; authModal = false; view = 'apply'">
-                <template x-if="authType === 'register'">
-                    <input type="text" class="form-control mb-3 rounded-3" placeholder="Full Name" required>
-                </template>
-                <input type="email" class="form-control mb-3 rounded-3" placeholder="Email Address" required>
-                <input type="password" class="form-control mb-4 rounded-3" placeholder="Password" required>
-                
-                <button class="btn btn-modern w-100" x-text="authType === 'login' ? 'Sign In' : 'Create Account'"></button>
-                
-                <div class="text-center mt-3">
-                    <a href="#" class="small text-muted" @click="authType = (authType === 'login' ? 'register' : 'login')"
-                       x-text="authType === 'login' ? 'Need an account? Register' : 'Have an account? Login'"></a>
-                </div>
-            </form>
-        </div>
+    <div id="toast" class="custom-toast">
+        <i class="fa-solid fa-check-circle me-2"></i> <span id="toast-message">Action Successful</span>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar-custom');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.style.background = 'rgba(15, 23, 42, 0.85)';
+            }
+        });
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const modalEl = document.getElementById('loginModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            modal.hide();
+
+            ocument.getElementById('logged-out-view').classList.add('hidden');
+            document.getElementById('logged-in-view').classList.remove('hidden');
+            
+            showToast("Welcome back, Admin. Access Granted.");
+        }
+
+        function handleLogout() {
+            document.getElementById('logged-in-view').classList.add('hidden');
+            document.getElementById('logged-out-view').classList.remove('hidden');
+            showToast("You have been logged out securely.");
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.disabled = false;
+                e.target.reset();
+                showToast("Message sent to the system core.");
+            }, 1500);
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').innerText = msg;
+            toast.classList.add('active');
+            setTimeout(() => {
+                toast.classList.remove('active');
+            }, 3000);
+        }
+
+        const canvas = document.getElementById('connection-canvas');
+        const ctx = canvas.getContext('2d');
+        const core = document.getElementById('core');
+        const orbits = document.querySelectorAll('.orbit');
+        let isAnimating = true;
+        let speedMultiplier = 2;
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = canvas.width / 2;
+                this.y = canvas.height / 2;
+                this.angle = Math.random() * Math.PI * 2;
+                this.speed = (Math.random() * 2 + 1) * speedMultiplier;
+                this.distance = Math.random() * 150 + 50;
+                this.life = 100;
+            }
+
+            update() {
+                this.angle += 0.02 * speedMultiplier;
+                this.distance += 0.5 * speedMultiplier;
+                
+                this.x = (canvas.width / 2) + Math.cos(this.angle) * this.distance;
+                this.y = (canvas.height / 2) + Math.sin(this.angle) * this.distance;
+                this.life -= 1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(6, 182, 212, ${this.life / 100})`;
+                ctx.fill();
+                
+                if (this.distance < 100) {
+                    ctx.beginPath();
+                    ctx.moveTo(canvas.width/2, canvas.height/2);
+                    ctx.lineTo(this.x, this.y);
+                    ctx.strokeStyle = `rgba(139, 92, 246, ${this.life / 200})`;
+                    ctx.stroke();
+                }
+            }
+        }
+
+        function animateSystem() {
+            if (!isAnimating) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                
+                if (particles[i].life <= 0 || particles[i].distance > 200) {
+                    particles.splice(i, 1);
+                    i--;
+                }
+            }
+
+            if (Math.random() < 0.1 * speedMultiplier) {
+                particles.push(new Particle());
+            }
+
+            requestAnimationFrame(animateSystem);
+        }
+
+        animateSystem();
+
+        const speedControl = document.getElementById('speedControl');
+        speedControl.addEventListener('input', (e) => {
+            speedMultiplier = parseFloat(e.target.value);
+            const coreEl = document.getElementById('core');
+            coreEl.style.animationDuration = `${2 / speedMultiplier}s`;
+            orbits.forEach((orbit, index) => {
+                const baseDuration = index === 0 ? 10 : 15;
+                orbit.style.animationDuration = `${baseDuration / speedMultiplier}s`;
+            });
+            document.getElementById('statusText').innerText = `System Intensity: ${speedMultiplier * 10}%`;
+        });
+
+        const toggleBtn = document.getElementById('toggleAnimBtn');
+        toggleBtn.addEventListener('click', () => {
+            isAnimating = !isAnimating;
+            toggleBtn.innerText = isAnimating ? "Pause" : "Resume";
+            core.style.animationPlayState = isAnimating ? 'running' : 'paused';
+            orbits.forEach(o => o.style.animationPlayState = isAnimating ? 'running' : 'paused');
+            if(isAnimating) animateSystem();
+        });
+
+        const injectBtn = document.getElementById('injectDataBtn');
+        injectBtn.addEventListener('click', () => {
+            for(let i=0; i<20; i++) {
+                particles.push(new Particle());
+            }
+            showToast("Data packet injected.");
+        });
+
+    </script>
 </body>
 </html>
